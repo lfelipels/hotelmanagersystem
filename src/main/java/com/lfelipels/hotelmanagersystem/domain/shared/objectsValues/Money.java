@@ -1,5 +1,8 @@
 package com.lfelipels.hotelmanagersystem.domain.shared.objectsValues;
 
+import com.lfelipels.hotelmanagersystem.infraestructure.persistency.hibernate.types.MoneyType;
+import org.hibernate.annotations.TypeDef;
+
 import java.text.NumberFormat;
 import java.util.Currency;
 
@@ -24,10 +27,13 @@ public class Money {
         formater.setCurrency(this.currency);
         formater.setMaximumFractionDigits(this.currency.getDefaultFractionDigits());
         formater.setMinimumFractionDigits(this.currency.getDefaultFractionDigits());
+
+        Double value = Double.valueOf(this.value) / 100;
+
         return String.format(
                 "%s %s",
                 this.currency.getSymbol(),
-                formater.format(this.value / 100)
+                formater.format(value)
         );
     }
 
