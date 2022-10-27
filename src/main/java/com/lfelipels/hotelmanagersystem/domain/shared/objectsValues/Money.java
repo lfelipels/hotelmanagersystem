@@ -1,0 +1,42 @@
+package com.lfelipels.hotelmanagersystem.domain.shared.objectsValues;
+
+import java.text.NumberFormat;
+import java.util.Currency;
+
+public class Money {
+    private Integer value;
+    private Currency currency;
+
+    public Money(Integer value, Currency currency) {
+        this.asserts(value);
+        this.value = value;
+        this.currency = currency;
+    }
+
+    private void asserts(Integer value) {
+        if (value <= 0) {
+            throw new IllegalArgumentException("Money should have a positive value");
+        }
+    }
+
+    public String formated() {
+        NumberFormat formater = NumberFormat.getInstance();
+        formater.setCurrency(this.currency);
+        formater.setMaximumFractionDigits(this.currency.getDefaultFractionDigits());
+        formater.setMinimumFractionDigits(this.currency.getDefaultFractionDigits());
+        return String.format(
+                "%s %s",
+                this.currency.getSymbol(),
+                formater.format(this.value / 100)
+        );
+    }
+
+    public Integer getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return this.formated();
+    }
+}
