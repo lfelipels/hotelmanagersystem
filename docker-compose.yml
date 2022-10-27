@@ -1,0 +1,14 @@
+version: "3.7"
+services:
+    db:
+        image: postgres:11-alpine
+        restart: always
+        container_name: db
+        ports:
+            - "5001:5432"
+        environment:
+            - POSTGRES_DB=hotelmanager
+            - POSTGRES_USER=hotelmanager
+            - POSTGRES_PASSWORD=hotelmanager
+        volumes:
+            - ./docker/data:/var/lib/postgresql/data
